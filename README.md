@@ -90,7 +90,24 @@ catkin build
 ```
 ---
 
+## 💻 Usage & Running the Code
 
+The workspace workflow is split into initializing the live sensor stream, building your topometric mapping path (Teach Phase), and running the autonomous tracking pipeline (Repeat Phase).
+
+### 1. Initialize the Environment & ROS Workspace
+Before running any scripts, ensure your environment is activated. 
+
+### 📹 2. Start the Camera Publisher
+Connect your Prophesee EVK4 HD camera and run the event camera publisher node using our custom sliding event-count window binning node:
+```bash
+pixi run cam-count-sliding
+```
+
+### 🗺️ 3. Teach Phase (Building the Topometric Map)
+
+### 🤖 4. Repeat Phase (Real-Time Fourier Localization)
+
+---
 
 ## Cite us at
 ```
