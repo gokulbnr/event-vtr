@@ -78,9 +78,8 @@ This ensures that OpenEB's custom C++ binaries and Python bindings are isolated 
 make -j$(nproc)
 sudo make install
 ```
----
 
-## 🛠️ ROS Workspace Setup (`cam_ws`)
+### ROS Workspace Setup (`cam_ws`)
 
 The `cam_ws` workspace contains the ROS packages required to interface with your sensors and mobile platform.
 Navigate to your repository root and create the workspace structure:
@@ -90,6 +89,8 @@ cd cam_ws
 catkin build
 ```
 ---
+
+
 
 ## Cite us at
 ```
