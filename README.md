@@ -44,7 +44,7 @@ This project uses **OpenEB** (the open-source core of the Metavision SDK). To su
 ---
 
 ### Setup via Pixi
-We utilize Pixi environment structures paired with RoboStack for strict control over deployment packages (including ROS 2 environments):
+We utilize [Pixi](https://pixi.prefix.dev/latest/) environment structures paired with [RoboStack](https://robostack.github.io/index.html):
 
 ```bash
 # Clone this repository
