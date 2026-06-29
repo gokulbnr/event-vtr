@@ -11,10 +11,13 @@
 #include <atomic>
 
 #include <ros/ros.h>
+#include <ros/package.h>
 #include <sensor_msgs/Image.h>
 
 #include <SDL2/SDL.h>
 // #include <metavision/sdk/core/algorithms/event_buffer_reslicer_algorithm.h>
+
+std::string package_path = ros::package::getPath("cam_pub");
 
 bool init_SDL(SDL_Window*& window, SDL_Renderer*& renderer, SDL_Texture*& texture, int width, int height) {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -161,7 +164,8 @@ int main(int argc, char *argv[]) {
         MV_LOG_INFO() << "Accumulation time: " << accumulation_time_us << " us";
     }
 
-    std::string in_cam_config_path = "/home/gokulbnr/cam_ws/src/cam-pub/config/settings.json";
+    // std::string in_cam_config_path = "/home/gokulbnr/cam_ws/src/cam-pub/config/settings.json";
+    std::string in_cam_config_path = package_path + "/config/settings.json";
 
     while (!should_exit) {
 
