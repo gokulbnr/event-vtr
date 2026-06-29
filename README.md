@@ -64,7 +64,7 @@ This ensures that OpenEB's custom C++ binaries and Python bindings are isolated 
 ```bash
 # 3. Build and install into the Pixi environment prefix
 make -j$(nproc)
-make install
+sudo make install
 ```
 
 ---
