@@ -43,6 +43,15 @@ Recordings from our reported real-world demonstrations are publicly available in
 This project uses **OpenEB** (the open-source core of the Metavision SDK). To support our pipeline, we utilize a custom fork that implements overlapping event-count window binning:
 * **Custom OpenEB Fork:** [gokulbnr/openeb (patch-1)](https://github.com/gokulbnr/openeb/tree/patch-1)
 
+```bash
+# Clone the repository
+git clone git@github.com:gokulbnr/openeb.git
+cd openeb
+git checkout patch-1
+mkdir build && cd build
+```
+
+
 ---
 
 ### Setup via Pixi
