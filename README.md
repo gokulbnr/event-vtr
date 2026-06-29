@@ -98,7 +98,7 @@ The workspace workflow is split into initializing the live sensor stream, buildi
 Before running any scripts, ensure your environment is activated. 
 
 ### 📹 2. Start the Camera Publisher
-Connect your Prophesee EVK4 HD camera and run the event camera publisher node using our custom sliding event-count window binning node:
+Connect your Prophesee EVK4 HD camera and run the event camera publisher node using:
 ```bash
 pixi run cam-count-sliding
 ```
