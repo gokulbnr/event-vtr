@@ -36,7 +36,7 @@ Recordings from our reported real-world demonstrations are publicly available in
 
 ## ⚙️ Prerequisites & Dependencies
 
-### Setup via Pixi
+### 1. Setup via Pixi
 We utilize [Pixi](https://pixi.prefix.dev/latest/) environment structures paired with [RoboStack](https://robostack.github.io/index.html):
 
 ```bash
@@ -48,10 +48,10 @@ cd event-vtr
 pixi install
 ```
 
-### Hardware
+### 2. Hardware
 * **Prophesee EVK4 HD** (or any compatible Metavision event camera).
 
-### Software Dependencies
+### 3. Software Dependencies
 This project uses **OpenEB** (the open-source core of the Metavision SDK). To support our pipeline, we utilize a custom fork that implements overlapping event-count window binning:
 * **Custom OpenEB Fork:** [gokulbnr/openeb (patch-1)](https://github.com/gokulbnr/openeb/tree/patch-1)
 
@@ -79,7 +79,7 @@ make -j$(nproc)
 sudo make install
 ```
 
-### ROS Workspace Setup (`cam_ws`)
+### 4. ROS Workspace Setup (`cam_ws`)
 
 The `cam_ws` workspace contains the ROS packages required to interface with your sensors and mobile platform.
 Navigate to your repository root and create the workspace structure:
