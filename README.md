@@ -49,8 +49,23 @@ git clone git@github.com:gokulbnr/openeb.git
 cd openeb
 git checkout patch-1
 mkdir build && cd build
-```
 
+# 2. Configure the build directory
+ccmake ..
+```
+⚠️ Crucial Configuration Step:
+Inside the ccmake TUI, navigate to CMAKE_INSTALL_PREFIX and update it to point directly inside your project's local Pixi environment:
+
+```bash
+CMAKE_INSTALL_PREFIX = /path/to/your/event-vtr/.pixi/envs/default
+```
+This ensures that OpenEB's custom C++ binaries and Python bindings are isolated and natively accessible to the Pixi environment framework.
+
+```bash
+# 3. Build and install into the Pixi environment prefix
+make -j$(nproc)
+make install
+```
 
 ---
 
