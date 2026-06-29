@@ -43,6 +43,20 @@ This project uses **OpenEB** (the open-source core of the Metavision SDK). To su
 
 ---
 
+### Setup via Pixi
+We utilize Pixi environment structures paired with RoboStack for strict control over deployment packages (including ROS 2 environments):
+
+```bash
+# Clone this repository
+git clone [https://github.com/gokulbnr/event-vtr.git](https://github.com/gokulbnr/event-vtr.git)
+cd event-vtr
+
+# Install dependencies and build workspace natively
+pixi install
+```
+
+---
+
 ## Cite us at
 ```
 @article{nair2025event,
