@@ -48,7 +48,7 @@ We utilize Pixi environment structures paired with RoboStack for strict control 
 
 ```bash
 # Clone this repository
-git clone [https://github.com/gokulbnr/event-vtr.git](https://github.com/gokulbnr/event-vtr.git)
+git clone https://github.com/gokulbnr/event-vtr.git
 cd event-vtr
 
 # Install dependencies and build workspace natively
