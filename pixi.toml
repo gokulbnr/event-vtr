@@ -70,7 +70,7 @@ gps-localizer = {path = "/home/gokulbnr/Projects/gps_to_cartesian/", editable = 
 
 
 [activation]
-scripts = ["../../devel/setup.bash","/opt/intel/oneapi/setvars.sh"]
+scripts = ["./cam_ws/devel/setup.bash","/opt/intel/oneapi/setvars.sh"]
 
 
 [target.linux.dependencies]
