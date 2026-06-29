@@ -78,7 +78,6 @@ This ensures that OpenEB's custom C++ binaries and Python bindings are isolated 
 make -j$(nproc)
 sudo make install
 ```
-
 ---
 
 ## Cite us at
