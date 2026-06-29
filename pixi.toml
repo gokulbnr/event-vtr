@@ -1,0 +1,120 @@
+[workspace]
+name = "robostack"
+version = "0.1.0"
+description = "Development environment for RoboStack ROS packages"
+authors = ["Gokul B. Nair <gokulbnr@gmail.com>"]
+channels = ["https://fast.prefix.dev/conda-forge", "https://prefix.dev/robostack-noetic"]
+platforms = ["linux-64"]
+
+[dependencies]
+python = "*"
+compilers = "*"
+cmake = "*"
+pkg-config = "*"
+make = "*"
+ninja = "*"
+lsb-release = "11.1.0.*"
+kernel-headers_linux-64 = "5.14.0.*"
+git = "*"
+cuda-runtime = ">=12.8.1,<13"
+cuda = ">=12.8.1,<13"
+sdl2 = ">=2.32.54,<3"
+libegl = ">=1.7.0,<2"
+mesalib = ">=25.0.5,<26"
+glew = ">=2.1.0,<3"
+cuda-toolkit = ">=12.9.0,<13"
+cuda-nvtx-dev = ">=12.9.19,<13"
+scipy = ">=1.15.2,<2"
+pytorch = ">=2.6.0,<3"
+gdown = ">=5.2.0,<6"
+ros-noetic-desktop = "*"
+catkin_tools = "*"
+rosdep = "*"
+nlohmann_json = ">=3.12.0,<4"
+ros-noetic-image-geometry = ">=1.16.2,<2"
+ros-noetic-joy = ">=1.15.1,<2"
+ros-noetic-turtlebot3 = ">=1.2.5,<2"
+ros-noetic-turtlebot3-teleop = ">=1.2.5,<2"
+hdf5 = ">=1.14.4,<2"
+glfw = ">=3.4,<4"
+ros-noetic-realsense2-camera = ">=2.3.2,<3"
+ros-noetic-ros-numpy = ">=0.0.5,<0.0.6"
+ipykernel = ">=6.29.5,<7"
+pandas = ">=2.3.0,<3"
+seaborn = ">=0.13.2,<0.14"
+h5py = ">=3.12.1,<4"
+jupyter = ">=1.1.1,<2"
+fastparquet = ">=2024.11.0,<2025"
+pynmea2 = ">=1.19.0,<2"
+pyproj = ">=3.7.1,<4"
+av = ">=14.2.0,<15"
+sk-video = ">=1.1.10,<2"
+fire = ">=0.7.0,<0.8"
+ros-noetic-sophus = ">=1.2.1,<2"
+ros-noetic-pcl-ros = ">=1.7.4,<2"
+ros-noetic-eigen-conversions = ">=1.13.2,<2"
+ros-noetic-camera-info-manager = ">=1.12.0,<2"
+ros-noetic-image-view = ">=1.17.0,<2"
+libcaer = ">=3.3.15,<4"
+fftw = ">=3.3.10,<4"
+opencv = ">=4.10.0,<5"
+yaml-cpp = ">=0.8.0,<0.9"
+vcstool = ">=0.3.0,<0.4"
+glog = "0.6.0.*"
+gflags = ">=2.2.2,<3"
+nanoflann = ">=1.6.1,<2"
+ros-noetic-std-msgs = ">=0.5.13,<0.6"
+
+[pypi-dependencies]
+gps-localizer = {path = "/home/gokulbnr/Projects/gps_to_cartesian/", editable = true}
+
+
+[activation]
+scripts = ["../../devel/setup.bash","/opt/intel/oneapi/setvars.sh"]
+
+
+[target.linux.dependencies]
+libgl-devel = "*"
+cuda-cudart-dev = "*"
+
+[tasks]
+
+get-data = { cmd = "mkdir -p data/stream && gdown 'https://drive.google.com/uc?id=1kRz0lh5m0vMM7Yfl2wWj-_FNVFTFNEQB' && mv 1.raw data/stream/" }
+
+# Task to build using catkin
+fresh-build = { cmd = "catkin clean -y && catkin build --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo", env = {CMAKE_POLICY_VERSION_MINIMUM = "3.5"}, cwd = "../.." }
+
+catkin-build = { cmd = "catkin build", env = {CMAKE_POLICY_VERSION_MINIMUM = "3.5"}, cwd = "../.."}
+
+# Task to run the camera stream (default: time-interval mode)
+cam = { cmd = "rosrun cam_pub evk_publisher $RAW_FILE --mode time --accumulation-time-us $ACCUMULATION_TIME_US", env = { RAW_FILE = "", ACCUMULATION_TIME_US = "66000" }, cwd = "../.." }
+
+# Task to run camera with event-count based frames
+cam-count = { cmd = "rosrun cam_pub evk_publisher $RAW_FILE --mode count --events-per-frame $EVENTS_PER_FRAME", env = { RAW_FILE = "", EVENTS_PER_FRAME = "10000" }, cwd = "../.." }
+
+# Task to run camera with sliding event-count frames (overlapping windows)
+cam-count-sliding = { cmd = "rosrun cam_pub evk_publisher $RAW_FILE --mode count --events-per-frame $EVENTS_PER_FRAME --hop-events $HOP_EVENTS --sliding", env = { RAW_FILE = "", EVENTS_PER_FRAME = "100000", HOP_EVENTS = "10000" }, cwd = "../.." }
+
+# Task to run camera with custom time-interval
+cam-time = { cmd = "rosrun cam_pub evk_publisher $RAW_FILE --mode time --accumulation-time-us $ACCUMULATION_TIME_US", env = { RAW_FILE = "", ACCUMULATION_TIME_US = "50000" }, cwd = "../.." }
+
+# cam = { cmd = "rosrun cam_pub evk_publisher $RAW_FILE", env = { RAW_FILE = "", ROS_MASTER_URI = "http://192.168.1.102:11311", ROS_IP = "192.168.1.124" }, cwd = "../.." }
+
+# Task to run FFT-based correlationz
+# fft-corr = { cmd = "rosrun cam-pub fftconvolve $IMAGE1 $IMAGE2", env = { IMAGE1 = "./src/cam-pub/data/images/ref", IMAGE2 = "./src/cam-pub/data/images/qry/013.926.png" }, cwd = "../.." }
+fft-corr = { cmd = "vtune -collect hotspots -result-dir vtune_rosrun_results -- rosrun cam_pub fftconvolve $IMAGE1 $IMAGE2", env = { IMAGE1 = "./src/cam-pub/data/images/vpr_ref", IMAGE2 = "./src/cam-pub/data/images/vpr_qry_turns" }, cwd = "../.." }
+
+xcorr = { cmd = "rosrun cam_pub xcorr --mode time --accumulation-time-us $ACCUMULATION_TIME_US", cwd = "../..", env = {ROS_MASTER_URI = "http://192.168.1.102:11311", ROS_IP = "192.168.1.124", ACCUMULATION_TIME_US = "66000"} }
+
+xcorr-count = { cmd = "rosrun cam_pub xcorr --mode count --events-per-frame $EVENTS_PER_FRAME", cwd = "../..", env = {ROS_MASTER_URI = "http://192.168.1.102:11311", ROS_IP = "192.168.1.124", EVENTS_PER_FRAME = "10000"} }
+
+xcorr-count-sliding = { cmd = "rosrun cam_pub xcorr --mode count --events-per-frame $EVENTS_PER_FRAME --hop-events $HOP_EVENTS --sliding", cwd = "../..", env = {ROS_MASTER_URI = "http://192.168.1.102:11311", ROS_IP = "192.168.1.124", EVENTS_PER_FRAME = "50000", HOP_EVENTS = "10000"} }
+
+xcorr-time = { cmd = "rosrun cam_pub xcorr --mode time --accumulation-time-us $ACCUMULATION_TIME_US", cwd = "../..", env = {ROS_MASTER_URI = "http://192.168.1.102:11311", ROS_IP = "192.168.1.124", ACCUMULATION_TIME_US = "50000"} }
+
+xcorr_local = { cmd = "rosrun cam_pub xcorr --mode time --accumulation-time-us $ACCUMULATION_TIME_US", cwd = "../..", env = {ACCUMULATION_TIME_US = "66000"} }
+
+# For VTune profiling
+vtune = { cmd = "vtune -collect hotspots -result-dir vtune_repeat_results -- rosrun cam_pub xcorr --mode time --accumulation-time-us $ACCUMULATION_TIME_US", cwd = "../..", env = {ROS_MASTER_URI = "http://192.168.1.102:11311", ROS_IP = "192.168.1.124", ACCUMULATION_TIME_US = "66000"} }
+
+teleop = { cmd = "rosrun turtlebot3_teleop turtlebot3_teleop_key", env = {ROS_MASTER_URI = "http://confucius:11311", ROS_IP = "172.19.60.46"} }

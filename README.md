@@ -7,6 +7,22 @@ Welcome to the official repository for the paper [**Event-Based Visual Teach-and
 
 This work demonstrates teach-and-repeat navigation for a mobile robot using an event-based camera as the sole exteroceptive sensor.
 
+<table border="0">
+  <tr>
+    <!-- Left Column: Main System Diagram -->
+    <td width="50%" valign="top">
+      <img src="./assets/system_diagram.png" alt="System Overview" width="100%">
+    </td>
+    <!-- Right Column: Hardware, GIF, and Tracks Grid -->
+    <td width="50%" valign="top">
+      <!-- <img src="./assets/hardware_robot.png" alt="Hardware Setup" width="33%"> -->
+      <img src="./assets/output.gif" alt="Event VT&R Demo" width="100%">
+      <br><br>
+      <img src="./assets/tracks_performance.png" alt="Performance Plots" width="90%">
+    </td>
+  </tr>
+</table>
+
 ---
 
 ## 📊 Dataset
