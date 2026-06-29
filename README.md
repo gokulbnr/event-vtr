@@ -32,9 +32,16 @@ Recordings from our reported real-world demonstrations are publicly available in
 
 ---
 
-## Dependency: OpenEB
+## ⚙️ Prerequisites & Dependencies
 
-The event camera device used for this project is a [Prophesee EVK4 HD](https://docs.prophesee.ai/stable/hw/evk/evk4.html). We use OpenEB, the open-source project associated with the Metavision SDK, to interface with the event-camera device. We use a version of the project with an additional feature of binning events from the camera by overlapping windows of event-count, available here: https://github.com/gokulbnr/openeb/tree/patch-1. 
+### Hardware
+* **Prophesee EVK4 HD** (or any compatible Metavision event camera).
+
+### Software Dependencies
+This project uses **OpenEB** (the open-source core of the Metavision SDK). To support our pipeline, we utilize a custom fork that implements overlapping event-count window binning:
+* **Custom OpenEB Fork:** [gokulbnr/openeb (patch-1)](https://github.com/gokulbnr/openeb/tree/patch-1)
+
+---
 
 ## Cite us at
 ```
