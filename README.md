@@ -34,6 +34,18 @@ Recordings from our reported real-world demonstrations are publicly available in
 
 ---
 
+### Setup via Pixi
+We utilize [Pixi](https://pixi.prefix.dev/latest/) environment structures paired with [RoboStack](https://robostack.github.io/index.html):
+
+```bash
+# Clone this repository
+git clone https://github.com/gokulbnr/event-vtr.git
+cd event-vtr
+
+# Install dependencies and build workspace natively
+pixi install
+```
+
 ## ⚙️ Prerequisites & Dependencies
 
 ### Hardware
@@ -65,20 +77,6 @@ This ensures that OpenEB's custom C++ binaries and Python bindings are isolated 
 # 3. Build and install into the Pixi environment prefix
 make -j$(nproc)
 sudo make install
-```
-
----
-
-### Setup via Pixi
-We utilize [Pixi](https://pixi.prefix.dev/latest/) environment structures paired with [RoboStack](https://robostack.github.io/index.html):
-
-```bash
-# Clone this repository
-git clone https://github.com/gokulbnr/event-vtr.git
-cd event-vtr
-
-# Install dependencies and build workspace natively
-pixi install
 ```
 
 ---
