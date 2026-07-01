@@ -119,6 +119,10 @@ roslaunch teach_repeat data_collection_scout.launch
 #### Real-Time Fourier Localization
 This ROS node tracks raw wheel odometry, processes incoming binned event frames to perform fast Fourier-domain cross-correlation against your saved map, and publishes corrected local navigation goals to guide the robot.
 
+```bash
+pixi run xcorr-count-sliding
+```
+
 > ⚠️ **Configuration Requirements:**
 > 
 > * **Network Environment:** Make sure you configure your network settings (`ROS_MASTER_URI` and `ROS_IP`) directly inside your `pixi.toml` file to allow seamless communication across your ROS nodes.
