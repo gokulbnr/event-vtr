@@ -65,8 +65,7 @@ mkdir build && cd build
 # 2. Configure the build directory
 ccmake ..
 ```
-⚠️ Crucial Configuration Step:
-Inside the ccmake TUI, navigate to CMAKE_INSTALL_PREFIX and update it to point directly inside your project's local Pixi environment:
+> ⚠️ **Configuration Note:** Inside the ccmake TUI, navigate to CMAKE_INSTALL_PREFIX and update it to point directly inside your project's local Pixi environment:
 
 ```bash
 CMAKE_INSTALL_PREFIX = /path/to/your/event-vtr/.pixi/envs/default
@@ -86,7 +85,7 @@ Navigate to your repository root and create the workspace structure:
 ```bash
 # From your event-vtr repository root:
 cd cam_ws
-catkin build
+catkin build -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 ```
 ---
 
@@ -102,10 +101,38 @@ Connect your Prophesee EVK4 HD camera and run the event camera publisher node us
 ```bash
 pixi run cam-count-sliding
 ```
+The publisher accumulates the binned event streams and publishes them as standard image messages to the topic: `/camera/color/image_raw`
 
 ### 🗺️ 3. Teach Phase (Building the Topometric Map)
 
-### 🤖 4. Repeat Phase (Real-Time Fourier Localization)
+We re-use the tracking and recording framework from the core [QVPR/teach-repeat](https://github.com/QVPR/teach-repeat) repository. While the camera publisher is running, open a new terminal window to initialize your data collection node:
+
+```bash
+cd cakin_ws
+source devel/setup.bash
+roslaunch teach_repeat data_collection_scout.launch
+```
+> ⚠️ **Configuration Note:** Before executing the launch file, open `data_collection_scout.launch` and set the `save_dir` ROS parameter to your desired directory path where you would like the system to save your recorded teach-data.
+
+### 🤖 4. Repeat Phase Navigation
+
+#### Real-Time Fourier Localization
+This ROS node tracks raw wheel odometry, processes incoming binned event frames to perform fast Fourier-domain cross-correlation against your saved map, and publishes corrected local navigation goals to guide the robot.
+
+> ⚠️ **Configuration Requirements:**
+> 
+> * **Network Environment:** Make sure you configure your network settings (`ROS_MASTER_URI` and `ROS_IP`) directly inside your `pixi.toml` file to allow seamless communication across your ROS nodes.
+> * **Map Path:** Before running the node, make sure to specify the absolute directory path where your saved teach frames are located inside the `xcorr.h` header file.
+
+#### Motion Control
+
+We re-use the motion controller framework from the core [QVPR/teach-repeat](https://github.com/QVPR/teach-repeat) repository. While the localizer node is running, open a new terminal window to run the go-to-pose controller node:
+
+```bash
+cd cakin_ws
+source devel/setup.bash
+roslaunch teach_repeat goto_goal.launch
+```
 
 ---
 
